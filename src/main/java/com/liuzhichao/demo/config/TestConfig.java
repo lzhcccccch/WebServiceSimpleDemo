@@ -23,7 +23,7 @@ import com.liuzhichao.demo.service.impl.UserServiceImpl;
 @Configuration
 public class TestConfig {
 	
-	/*public TestConfig() {
+	/*public TestConfiging() {
 		System.out.println("-----------------");
 		Endpoint.publish("http://localhost:8080/accountInfo", new AppAccountService());
 	}*/
@@ -44,8 +44,14 @@ public class TestConfig {
 		return new UserServiceImpl();
 	}
 	
+	/**
+	 * Endpoint 此类为端点服务类,它的publish()方法用于将一个已经添加了@Webservice
+	 * 注解的对象绑定到一个地址的端口上.
+	 * 发布的方法不能重名，即使不在同一个类中，也不能重名，否则会找不到服务
+	 * @return
+	 */
 	@Bean
-	public Endpoint endpoint() {
+	public Endpoint endpoint1() {
 		EndpointImpl endpoint = new EndpointImpl(springBus(), userService());
 		endpoint.publish("/user");
 		return endpoint;
@@ -58,9 +64,9 @@ public class TestConfig {
 	}*/
 	
 	@Bean
-	public Endpoint endpoint1() {
+	public Endpoint endpoint2() {
 		EndpointImpl endpoint = new EndpointImpl(springBus(), new AppAccountService());
-		endpoint.publish("/accountInfo");
+		endpoint.publish("/accountInfo1");
 		return endpoint;
 		//return Endpoint.publish("http://localhost:8080/accountInfo", new AppAccountService());
 	}
